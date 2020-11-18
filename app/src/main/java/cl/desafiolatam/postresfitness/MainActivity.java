@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initValues() {
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        //GridLayoutManager manager = new GridLayoutManager(this, 2, );
+        //LinearLayoutManager manager = new LinearLayoutManager(this);
+        GridLayoutManager manager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false);
         rvLista.setLayoutManager(manager);
         items = getItems();
         adapter = new RecyclerAdapter(items);
