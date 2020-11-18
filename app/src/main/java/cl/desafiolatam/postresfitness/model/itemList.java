@@ -1,6 +1,8 @@
 package cl.desafiolatam.postresfitness.model;
 
-public class itemList {
+import java.io.Serializable;
+
+public class itemList implements Serializable {
     private String titulo, descripcion;
     private int imgResource;
 

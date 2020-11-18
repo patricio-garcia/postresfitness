@@ -1,5 +1,6 @@
 package cl.desafiolatam.postresfitness.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import cl.desafiolatam.postresfitness.DetailActivity;
 import cl.desafiolatam.postresfitness.R;
 import cl.desafiolatam.postresfitness.model.itemList;
 
@@ -36,6 +38,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recyvl
         holder.imgItem.setImageResource(item.getImgResource());
         holder.tvTitulo.setText(item.getTitulo());
         holder.tvDescripcion.setText(item.getDescripcion());
+
+        //Para llamar al Detalle
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
+                intent.putExtra("itemDetail", item);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
