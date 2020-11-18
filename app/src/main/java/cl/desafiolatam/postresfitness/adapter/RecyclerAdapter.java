@@ -19,9 +19,12 @@ import cl.desafiolatam.postresfitness.model.itemList;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyvlerHolder> {
 
     private List<itemList> items;
+    private recyclerItemClick itemClick;
 
-    public RecyclerAdapter(List<itemList> items) {
+    //Se modifica el constructor para enviar instancia del recyclerItemClick
+    public RecyclerAdapter(List<itemList> items, recyclerItemClick itemClick) {
         this.items = items;
+        this.itemClick = itemClick;
     }
 
 
@@ -39,15 +42,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recyvl
         holder.tvTitulo.setText(item.getTitulo());
         holder.tvDescripcion.setText(item.getDescripcion());
 
-        //Para llamar al Detalle
+        //Usando la interface
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClick.itemClick(item);
+            }
+        });
+
+        //Para llamar al Detalle Froma 1 (en este caso sólo quiero pasar los datos del item
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
                 intent.putExtra("itemDetail", item);
                 holder.itemView.getContext().startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override
@@ -66,5 +77,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recyvl
             tvTitulo = itemView.findViewById(R.id.tvTitulo);
             tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
         }
+    }
+
+    //Forma 2 para llamar al detalle desde el ActivityMain
+    public interface recyclerItemClick {
+        void itemClick(itemList item);
     }
 }

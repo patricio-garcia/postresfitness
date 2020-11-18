@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 import cl.desafiolatam.postresfitness.adapter.RecyclerAdapter;
 import cl.desafiolatam.postresfitness.model.itemList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerAdapter.recyclerItemClick {
 
     private RecyclerView rvLista;
     private RecyclerAdapter adapter;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //GridLayoutManager manager = new GridLayoutManager(this, 2, RecyclerView.VERTICAL, false);
         rvLista.setLayoutManager(manager);
         items = getItems();
-        adapter = new RecyclerAdapter(items);
+        adapter = new RecyclerAdapter(items, this::itemClick);
         rvLista.setAdapter(adapter);
     }
 
@@ -52,5 +53,12 @@ public class MainActivity extends AppCompatActivity {
         itemLists.add(new itemList("Pn Calabaza","Pan de calabaza", R.drawable.pan_de_calabacin_750x300));
         itemLists.add(new itemList("Panqueques","Panqueques de chocolate con toppins de banana", R.drawable.panquecas_de_cacao_con_topping_de_banana));
         return itemLists;
+    }
+
+    @Override
+    public void itemClick(itemList item) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("itemDetail", item);
+        startActivity(intent);
     }
 }
